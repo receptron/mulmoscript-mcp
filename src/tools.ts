@@ -1,5 +1,14 @@
 import { type OpenAITool } from "mulmocast-vision";
 
+const beatSchema = {
+  type: "object",
+  properties: {
+    text: { type: "string", description: "talk script for each beat" },
+    speaker: { type: "string", description: "speaker" },
+  },
+  required: ["text"],
+};
+
 export const generatorTools: OpenAITool[] = [
   {
     type: "function",
@@ -23,14 +32,7 @@ export const generatorTools: OpenAITool[] = [
       parameters: {
         type: "object",
         properties: {
-          beat: {
-            type: "object",
-            properties: {
-              text: { type: "string", description: "talk script for each beat" },
-              speaker: { type: "string", description: "speaker" },
-            },
-            required: ["text"],
-          },
+          beat: beatSchema,
         },
         required: ["beat"],
       },
@@ -45,14 +47,7 @@ export const generatorTools: OpenAITool[] = [
         type: "object",
         properties: {
           index: { type: "number", description: "position index of beats array" },
-          beat: {
-            type: "object",
-            properties: {
-              text: { type: "string", description: "talk script for each beat" },
-              speaker: { type: "string", description: "speaker" },
-            },
-            required: ["text"],
-          },
+          beat: beatSchema,
         },
         required: ["beat", "index"],
       },
